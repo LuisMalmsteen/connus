@@ -1,14 +1,19 @@
-from flask import Flask
-from controller.ServiceControllers import MyClass
+from flask import Flask, jsonify
+from flask import make_response
+
+from controller.MainProcessController import MainProcessController
 
 app = Flask(__name__)
 
 
-@app.route('/bigReveal', methods=['GET'])
-def big_reveal():
-    services = MyClass()
+@app.route('/taskConfig/', methods=['POST'])
+def task_config():
+    main_process = MainProcessController()
+    alarms = main_process.getAlarmsJSON()
 
-    return "Big reveal, i'm mathing: " + str(services.sum(3, 4))
+    print(alarms)
+
+    return make_response(jsonify({'code': 1, 'result': True, 'message': "OK"}))
 
 
 if __name__ == '__main__':
