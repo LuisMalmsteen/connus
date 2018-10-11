@@ -1,17 +1,17 @@
 from flask import Flask, jsonify
 from flask import make_response
 
-from controller.MainProcessController import MainProcessController
+from controller.CSVJoiner import CSVJoiner
 
 app = Flask(__name__)
 
 
 @app.route('/taskConfig/', methods=['POST'])
 def task_config():
-    main_process = MainProcessController()
-    alarms = main_process.getAlarmsJSON()
-
-    print(alarms)
+    #main_process = MainProcessController()
+    #alarms = main_process.getAlarmsJSON()
+    csv = CSVJoiner()
+    print(csv.joinReport({}))
 
     return make_response(jsonify({'code': 1, 'result': True, 'message': "OK"}))
 
